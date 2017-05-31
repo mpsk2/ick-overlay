@@ -4,7 +4,7 @@ const unsigned int voltage = 5000;
 
 class ForceSensor {
 private:
-  const int number;
+  const int analogPin;
   int sum;
   int count;
   int minimum;
@@ -12,8 +12,8 @@ private:
   unsigned long startTime;
   unsigned long endTime;
 public:
-  ForceSensor(const int& _number) : 
-    number(_number) {
+  ForceSensor(const int& _analogPin) : 
+    analogPin(_analogPin) {
     this->reset();
   }
   
@@ -45,8 +45,8 @@ public:
     
     sprintf(
       str, 
-      "n=%d,s=%d,c=%d,min=%d,max=%d,t=%u",
-      this->number,
+      "p=%d,s=%d,c=%d,min=%d,max=%d,t=%u",
+      this->analogPin,
       this->sum,
       this->count,
       this->minimum,
@@ -60,16 +60,69 @@ public:
   unsigned long timeElapsed() {
     return this->endTime - this->startTime;
   }
+  
+  void readAnalog() {
+    int record = analogRead(this->analogPin);
+    this->addRecord(record);
+  }
 };
 
-ForceSensor fs(1);
+class ForceSensors {
+private:
+  ForceSensor sensors[4] = {
+    ForceSensor(0),
+    ForceSensor(1),
+    ForceSensor(2),
+    ForceSensor(3)
+  };
+  int stepCount;
+  int sendStep;
+  int delayMilliseconds;
+public:
+  static const int sensorsCount = 4;
+  
+  ForceSensors() {
+    this->reset();
+    this->sendStep = 20;
+    this->delayMilliseconds = 50;
+  }
+  
+  void reset() {
+    this->stepCount = 0;
+    for (int i = 0; i < this->sensorsCount; i++) {
+      this->sensors[i].reset();
+    }
+  }
+  
+  void readAnalog() {
+    for (int i = 0; i < this->sensorsCount; i++) {
+      this->sensors[i].readAnalog();
+    }
+  }  
+  
+  void sendSerialized(Stream& stream) {
+    for (int i = 0; i < this->sensorsCount; i++) {
+      this->sensors[i].sendSerialized(stream);
+    }
+  }
+  
+  void step(Stream& stream) {
+    this->readAnalog();
+    this->stepCount++;
+    if (this->stepCount >= this->sendStep) {
+      this->sendSerialized(stream);
+      this->reset();
+    }
+    delay(this->delayMilliseconds);
+  }
+};
+
+ForceSensors fs;
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  delay(500);
-  fs.addRecord(15);
-  fs.sendSerialized(Serial);
+  fs.step(Serial);
 }
