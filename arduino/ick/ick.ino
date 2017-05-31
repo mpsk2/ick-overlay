@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <SoftwareSerial.h>
 
 const unsigned int voltage = 5000;
 
@@ -118,11 +119,14 @@ public:
 };
 
 ForceSensors fs;
+const int BT_RX_PIN = 2;
+const int BT_TX_PIN = 4;
+SoftwareSerial bt(BT_RX_PIN, BT_TX_PIN);
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  fs.step(Serial);
+  fs.step(bt);
 }
