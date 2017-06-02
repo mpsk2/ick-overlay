@@ -3,6 +3,11 @@
 
 const unsigned int voltage = 5000;
 
+const int BACK_LEFT = 0;
+const int FRONT_LEFT = 1;
+const int FRONT_RIGHT = 2;
+const int BACK_RIGHT = 3;
+
 class ForceSensor {
 private:
   const int analogPin;
@@ -46,7 +51,7 @@ public:
     
     sprintf(
       str, 
-      "p=%d,s=%d,c=%d,min=%d,max=%d,t=%u",
+      "p=%d,s=%d,c=%d,min=%d,max=%d,t=%u\n",
       this->analogPin,
       this->sum,
       this->count,
@@ -56,6 +61,7 @@ public:
     );
     
     stream.println(str);
+//    Serial.write(str);
   }
   
   unsigned long timeElapsed() {
@@ -71,10 +77,10 @@ public:
 class ForceSensors {
 private:
   ForceSensor sensors[4] = {
-    ForceSensor(0),
-    ForceSensor(1),
-    ForceSensor(2),
-    ForceSensor(3)
+    ForceSensor(BACK_LEFT),
+    ForceSensor(FRONT_LEFT),
+    ForceSensor(FRONT_RIGHT),
+    ForceSensor(BACK_RIGHT)
   };
   int stepCount;
   int sendStep;
