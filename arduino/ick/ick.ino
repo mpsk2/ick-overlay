@@ -131,6 +131,7 @@ SoftwareSerial bt(BT_RX_PIN, BT_TX_PIN);
 
 void setup() {
   Serial.begin(9600);
+  bt.begin(9600);
 }
 
 void loop() {
