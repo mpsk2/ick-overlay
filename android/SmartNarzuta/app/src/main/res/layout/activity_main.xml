@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ickteam.smartnarzuta.MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <Button
+        android:id="@+id/connect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:text="@string/connect_to_chair"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/connection_status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connection_status"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <com.ickteam.smartnarzuta.FontAwesome
+        android:id="@+id/connection_status_disconnected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&#xf057;"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/connection_status_text" />
+         />
+    <com.ickteam.smartnarzuta.FontAwesome
+        android:visibility="invisible"
+        android:id="@+id/connection_status_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&#xf0ec;"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/connection_status_text" />
+    />
+    <com.ickteam.smartnarzuta.FontAwesome
+        android:visibility="invisible"
+        android:id="@+id/connection_status_connecting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&#xf085;"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/connection_status_text" />
+    />
+
+    <ImageView
+        android:id="@+id/right_back_gradient"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/whitegradient"
+        android:layout_marginLeft="100dp"
+        app:layout_constraintLeft_toLeftOf="@+id/left_back_gradient"
+        app:layout_constraintTop_toTopOf="@+id/right_front_gradient"
+        android:layout_marginTop="100dp" />
+
+    <ImageView
+        android:id="@+id/left_back_gradient"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/left_front_gradient"
+        app:srcCompat="@drawable/whitegradient" />
+
+    <ImageView
+        android:id="@+id/left_front_gradient"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/whitegradient"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/connection_status_text"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:id="@+id/right_front_gradient"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/whitegradient"
+        android:layout_marginLeft="100dp"
+        app:layout_constraintLeft_toLeftOf="@+id/left_front_gradient"
+        app:layout_constraintTop_toTopOf="@+id/left_front_gradient"
+        android:layout_marginTop="0dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="288dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/left_back_gradient"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>
